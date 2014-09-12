@@ -2,36 +2,35 @@
 
 namespace AthleticLogger\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Athletic\Results\ClassResults as AthleticClassResult;
-use Athletic\Results\MethodResults as AthleticMethodResult;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
- * @Entity
- * @Table("class_results")
+ * @ORM\Entity
+ * @ORM\Table("class_results")
  */
-class ClassResult
+class ClassResult implements Entity
 {
     /**
-     * @var integer
      *
-     * @Id
-     * @Column(name="id", type="integer")
-     * @GeneratedValue(strategy="AUTO")
+     * @ORM\Id
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @var integer
      */
     private $id;
 
     /**
+     * @ORM\Column(name="name", type="string", nullable=false)
      * @var string
-     *
-     * @Column(name="name", type="string", nullable=false)
      */
     private $className;
 
     /**
+     * @ORM\OneToMany(targetEntity="MethodResult", mappedBy="classResult")
      * @var MethodResult[]
-     *
-     * @OneToMany(targetEntity="MethodResult", mappedBy="classResult")
      */
     private $methodResults;
 
@@ -41,7 +40,8 @@ class ClassResult
     public function __construct(AthleticClassResult $athleticClass)
     {
         $this->className     = $athleticClass->getClassName();
-        $this->methodResults = new ArrayCollection();
+        $athleticMethods     = $this->hydrateMethodResults($athleticClass);
+        $this->methodResults = new ArrayCollection($athleticMethods);
     }
 
     /**
@@ -53,14 +53,6 @@ class ClassResult
     }
 
     /**
-     * @param string $className
-     */
-    public function setClassName($className)
-    {
-        $this->className = $className;
-    }
-
-    /**
      * @return string
      */
     public function getClassName()
@@ -69,7 +61,7 @@ class ClassResult
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection|MethodResult[]
      */
     public function getMethodResults()
     {
@@ -77,32 +69,18 @@ class ClassResult
     }
 
     /**
-     * @param AthleticMethodResult[] $methodResults
+     * Iterate over the athletic class results adding the methods
+     * to our Collection of results.
+     *
+     * @param AthleticClassResult $athleticClass
      */
-    public function setMethodResults($athleticMethodResults)
+    private function hydrateMethodResults(AthleticClassResult $athleticClass)
     {
-        foreach ($athleticMethodResults as $athleticMethodResult) {
-            $this->methodResults->add(new MethodResult($this, $athleticMethodResult));
+        $methodResults = [];
+        foreach ($athleticClass->getIterator() as $athleticMethod) {
+            $methodResults[] = new MethodResult($this, $athleticMethod);
         }
-    }
 
-    /**
-     * @param MethodResult $method
-     * @return void
-     */
-    public function addMethodResult(MethodResult $method)
-    {
-        $method->setClassResult($this);
-        $this->methodResults->add($method);
-    }
-
-    /**
-     * @param MethodResult $methodResult
-     * @return void
-     */
-    public function removeMethodResult(MethodResult $methodResult)
-    {
-        $methodResult->setClassResult(null);
-        $this->methodResults->removeElement($methodResult);
+        return $methodResults;
     }
 }

@@ -2,70 +2,65 @@
 
 namespace AthleticLogger\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Athletic\Results\MethodResults as AthleticMethodResult;
 
 /**
- * @Entity
- * @Table("method_results")
+ * @ORM\Entity
+ * @ORM\Table("method_results")
  */
 class MethodResult implements Entity
 {
     /**
+     * @ORM\Id
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @var integer
-     *
-     * @Id
-     * @Column(name="id", type="integer")
-     * @GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="ClassResult", inversedBy="methodResults")
+     * @ORM\JoinColumn(name="class_result_id", referencedColumnName="id")
      * @var ClassResult
-     *
-     * @ManyToOne(targetEntity="ClassResult", inversedBy="methodResults")
-     * @JoinColumn(name="class_result_id", referencedColumnName="id")
      */
     private $classResult;
 
     /**
+     * @ORM\Column(name="iterations", type="integer")
      * @var float
-     *
-     * @Column(name="iterations", type="integer")
      */
     private $iterations;
 
     /**
+     * @ORM\Column(name="sum", type="decimal")
      * @var float
-     *
-     * @Column(name="sum", type="decimal")
      */
     private $sum;
 
     /**
+     * @ORM\Column(name="average", type="decimal")
      * @var float
-     *
-     * @Column(name="average", type="decimal")
      */
     private $average;
 
     /**
+     * @ORM\Column(name="max", type="decimal")
      * @var float
-     *
-     * @Column(name="max", type="decimal")
      */
     private $max;
 
     /**
+     * @ORM\Column(name="min", type="decimal")
      * @var float
-     *
-     * @Column(name="min", type="decimal")
      */
     private $min;
 
     /**
-     * @var float
+     * Operations per second.
      *
-     * @Column(name="ops", type="decimal")
+     * @ORM\Column(name="ops", type="decimal")
+     * @var float
      */
     private $ops;
 
@@ -76,11 +71,11 @@ class MethodResult implements Entity
     public function __construct(ClassResult $classResult, AthleticMethodResult $atlheticMethod)
     {
         $this->classResult = $classResult;
-        $this->iterations  = $atlheticMethod->iterations;
-        $this->average     = $atlheticMethod->avg;
-        $this->max         = $atlheticMethod->max;
-        $this->min         = $atlheticMethod->min;
-        $this->ops         = $atlheticMethod->ops;
+        $this->iterations  = (int) $atlheticMethod->iterations;
+        $this->average     = (float) $atlheticMethod->avg;
+        $this->max         = (float) $atlheticMethod->max;
+        $this->min         = (float) $atlheticMethod->min;
+        $this->ops         = (float) $atlheticMethod->ops;
     }
 
     /**
@@ -97,14 +92,6 @@ class MethodResult implements Entity
     public function getClassResult()
     {
         return $this->classResult;
-    }
-
-    /**
-     * @param ClassResult $classResult
-     */
-    public function setClassResult(ClassResult $classResult = null)
-    {
-        $this->classResult = $classResult;
     }
 
     /**
