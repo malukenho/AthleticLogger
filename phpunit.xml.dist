@@ -10,9 +10,9 @@
         processIsolation="false"
         backupGlobals="false"
         syntaxCheck="true"
-        >
+>
     <testsuite name="AthleticLogger tests">
-        <directory>./tests</directory>
+        <directory>./tests/AthleticLoggerTest</directory>
     </testsuite>
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true">
