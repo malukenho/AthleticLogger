@@ -2,14 +2,14 @@
 
 namespace AthleticLogger\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Athletic\Results\MethodResults as AthleticMethodResult;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
  * @ORM\Table("method_results")
  */
-class MethodResult implements Entity
+class MethodResult
 {
     /**
      * @ORM\Id
@@ -25,6 +25,12 @@ class MethodResult implements Entity
      * @var ClassResult
      */
     private $classResult;
+
+    /*
+     * @ORM\Column(name="name", type="string")
+     * @var string
+     */
+    private $name;
 
     /**
      * @ORM\Column(name="iterations", type="integer")
@@ -71,15 +77,17 @@ class MethodResult implements Entity
     public function __construct(ClassResult $classResult, AthleticMethodResult $atlheticMethod)
     {
         $this->classResult = $classResult;
+        $this->name        = $atlheticMethod->methodName;
         $this->iterations  = (int) $atlheticMethod->iterations;
         $this->average     = (float) $atlheticMethod->avg;
         $this->max         = (float) $atlheticMethod->max;
+        $this->sum         = (float) $atlheticMethod->sum;
         $this->min         = (float) $atlheticMethod->min;
         $this->ops         = (float) $atlheticMethod->ops;
     }
 
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public function getId()
     {
@@ -92,6 +100,14 @@ class MethodResult implements Entity
     public function getClassResult()
     {
         return $this->classResult;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**

@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\Collection;
  * @ORM\Entity
  * @ORM\Table("class_results")
  */
-class ClassResult implements Entity
+class ClassResult
 {
     /**
      *
@@ -45,7 +45,7 @@ class ClassResult implements Entity
     }
 
     /**
-     * {@inheritdoc}
+     * @return int
      */
     public function getId()
     {
