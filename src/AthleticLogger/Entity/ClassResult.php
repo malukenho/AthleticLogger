@@ -2,10 +2,10 @@
 
 namespace AthleticLogger\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Athletic\Results\ClassResults as AthleticClassResult;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
@@ -14,7 +14,6 @@ use Doctrine\Common\Collections\Collection;
 class ClassResult
 {
     /**
-     *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
