@@ -32,7 +32,9 @@ class ClassResultTest extends PHPUnit_Framework_TestCase
         $this->athleticClassResult->expects($this->once())
                                   ->method('getIterator')
                                   ->will($this->returnValue(new ArrayIterator([$athleticMethodResult])));
-        $this->athleticClassResult->expects($this->once())->method('getClassName')->will($this->returnValue($this->className));
+        $this->athleticClassResult->expects($this->once())
+                                  ->method('getClassName')
+                                  ->will($this->returnValue($this->className));
         $this->classResult = new ClassResult($this->athleticClassResult);
     }
 
