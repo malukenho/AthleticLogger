@@ -34,7 +34,7 @@ class MethodResult
 
     /**
      * @ORM\Column(name="iterations", type="integer")
-     * @var float
+     * @var int
      */
     private $iterations;
 

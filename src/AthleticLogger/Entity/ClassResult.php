@@ -29,7 +29,7 @@ class ClassResult
 
     /**
      * @ORM\OneToMany(targetEntity="MethodResult", mappedBy="classResult")
-     * @var MethodResult[]
+     * @var Collection|MethodResult[]
      */
     private $methodResults;
 
