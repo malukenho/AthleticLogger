@@ -2,41 +2,38 @@
 
 namespace AthleticLoggerTest\Entity;
 
+use ArrayIterator;
 use Athletic\Results\ClassResults as AthleticClassResult;
 use Athletic\Results\MethodResults as AthleticMethodResult;
 use AthleticLogger\Entity\ClassResult;
-use AthleticLogger\Entity\MethodResult;
-use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit_Framework_TestCase;
 
 class ClassResultTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @var AthleticClassResult
-     */
-    private $athleticClassResult;
-
     /**
      * @var ClassResult
      */
     private $classResult;
 
     /**
-     * @var MethodResult
+     * @var AthleticClassResult
      */
-    private $methodResult;
+    private $athleticClassResult;
 
     /**
-     * @var AthleticMethodResult
+     * @var string
      */
-    private $athleticMethodResult;
+    private $className = 'foo';
 
     public function setUp()
     {
-        $this->athleticClassResult  = $this->getMock('Athletic\Results\ClassResults', [], ['foo', []]);
-        $this->classResult          = new ClassResult($this->athleticClassResult);
-        $this->athleticMethodResult = new AthleticMethodResult('FooName', [0.1, 0.2, 0.3], 100);
-        $this->methodResult         = new MethodResult($this->classResult, $this->athleticMethodResult);
+        $this->athleticClassResult = $this->getMock('Athletic\Results\ClassResults', [], [], '', false);
+        $athleticMethodResult      = new AthleticMethodResult($this->athleticClassResult, [0.1, 0.2, 0.3], 1000);
+        $this->athleticClassResult->expects($this->once())
+                                  ->method('getIterator')
+                                  ->will($this->returnValue(new ArrayIterator([$athleticMethodResult])));
+        $this->athleticClassResult->expects($this->once())->method('getClassName')->will($this->returnValue($this->className));
+        $this->classResult = new ClassResult($this->athleticClassResult);
     }
 
     public function testGetId()
@@ -44,39 +41,13 @@ class ClassResultTest extends PHPUnit_Framework_TestCase
         $this->assertNull($this->classResult->getId());
     }
 
-    public function testGetAndSetClassName()
+    public function testGetClassName()
     {
-        $this->classResult->setClassName($className = ClassResult::class);
-
-        $this->assertEquals($className, $this->classResult->getClassName());
+        $this->assertEquals($this->className, $this->classResult->getClassName());
     }
 
     public function testGetMethodResults()
     {
-        $emptyCollection = new ArrayCollection([]);
-
-        $this->assertEquals($emptyCollection, $this->classResult->getMethodResults());
-    }
-
-    public function testAddMethodResult()
-    {
-        $this->classResult->addMethodResult($this->methodResult);
-
-        $this->assertEquals(1, $this->classResult->getMethodResults()->count());
-    }
-
-    public function testRemoveMethodResult()
-    {
-        $this->classResult->removeMethodResult($this->methodResult);
-
-        $this->assertTrue($this->classResult->getMethodResults()->isEmpty());
-    }
-
-    public function testSetMethodResults()
-    {
-        $methodResults = [$this->athleticMethodResult, $this->athleticMethodResult, $this->athleticMethodResult];
-        $this->classResult->setMethodResults($methodResults);
-
-        $this->assertEquals(3, $this->classResult->getMethodResults()->count());
+        $this->assertCount(1, $this->classResult->getMethodResults());
     }
 }
