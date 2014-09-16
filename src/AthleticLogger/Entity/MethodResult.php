@@ -26,7 +26,7 @@ class MethodResult
      */
     private $classResult;
 
-    /*
+    /**
      * @ORM\Column(name="name", type="string")
      * @var string
      */
