@@ -28,7 +28,7 @@ class ClassResult
     private $className;
 
     /**
-     * @ORM\OneToMany(targetEntity="MethodResult", mappedBy="classResult")
+     * @ORM\OneToMany(targetEntity="MethodResult", mappedBy="classResult", cascade={"persist"})
      * @var Collection|MethodResult[]
      */
     private $methodResults;
@@ -76,7 +76,7 @@ class ClassResult
     private function hydrateMethodResults(AthleticClassResult $athleticClass)
     {
         $methodResults = [];
-        foreach ($athleticClass->getIterator() as $athleticMethod) {
+        foreach ($athleticClass as $athleticMethod) {
             $methodResults[] = new MethodResult($this, $athleticMethod);
         }
 
