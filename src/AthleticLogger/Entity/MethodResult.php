@@ -72,18 +72,18 @@ class MethodResult
 
     /**
      * @param ClassResult          $classResult
-     * @param AthleticMethodResult $ahleticMethod
+     * @param AthleticMethodResult $athleticMethod
      */
-    public function __construct(ClassResult $classResult, AthleticMethodResult $ahleticMethod)
+    public function __construct(ClassResult $classResult, AthleticMethodResult $athleticMethod)
     {
         $this->classResult = $classResult;
-        $this->name        = (string) $ahleticMethod->methodName;
-        $this->iterations  = (int) $ahleticMethod->iterations;
-        $this->average     = (float) $ahleticMethod->avg;
-        $this->max         = (float) $ahleticMethod->max;
-        $this->sum         = (float) $ahleticMethod->sum;
-        $this->min         = (float) $ahleticMethod->min;
-        $this->ops         = (float) $ahleticMethod->ops;
+        $this->name        = (string) $athleticMethod->methodName;
+        $this->iterations  = (int) $athleticMethod->iterations;
+        $this->average     = (float) $athleticMethod->avg;
+        $this->max         = (float) $athleticMethod->max;
+        $this->sum         = (float) $athleticMethod->sum;
+        $this->min         = (float) $athleticMethod->min;
+        $this->ops         = (float) $athleticMethod->ops;
     }
 
     /**
