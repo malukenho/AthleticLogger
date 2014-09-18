@@ -26,7 +26,7 @@ class MethodResult
      */
     private $classResult;
 
-    /*
+    /**
      * @ORM\Column(name="name", type="string")
      * @var string
      */
@@ -39,25 +39,25 @@ class MethodResult
     private $iterations;
 
     /**
-     * @ORM\Column(name="sum", type="decimal")
+     * @ORM\Column(name="sum", type="float")
      * @var float
      */
     private $sum;
 
     /**
-     * @ORM\Column(name="average", type="decimal")
+     * @ORM\Column(name="average", type="float")
      * @var float
      */
     private $average;
 
     /**
-     * @ORM\Column(name="max", type="decimal")
+     * @ORM\Column(name="max", type="float")
      * @var float
      */
     private $max;
 
     /**
-     * @ORM\Column(name="min", type="decimal")
+     * @ORM\Column(name="min", type="float")
      * @var float
      */
     private $min;
@@ -65,25 +65,25 @@ class MethodResult
     /**
      * Operations per second.
      *
-     * @ORM\Column(name="ops", type="decimal")
+     * @ORM\Column(name="ops", type="float")
      * @var float
      */
     private $ops;
 
     /**
      * @param ClassResult          $classResult
-     * @param AthleticMethodResult $atlheticMethod
+     * @param AthleticMethodResult $ahleticMethod
      */
-    public function __construct(ClassResult $classResult, AthleticMethodResult $atlheticMethod)
+    public function __construct(ClassResult $classResult, AthleticMethodResult $ahleticMethod)
     {
         $this->classResult = $classResult;
-        $this->name        = $atlheticMethod->methodName;
-        $this->iterations  = (int) $atlheticMethod->iterations;
-        $this->average     = (float) $atlheticMethod->avg;
-        $this->max         = (float) $atlheticMethod->max;
-        $this->sum         = (float) $atlheticMethod->sum;
-        $this->min         = (float) $atlheticMethod->min;
-        $this->ops         = (float) $atlheticMethod->ops;
+        $this->name        = (string) $ahleticMethod->methodName;
+        $this->iterations  = (int) $ahleticMethod->iterations;
+        $this->average     = (float) $ahleticMethod->avg;
+        $this->max         = (float) $ahleticMethod->max;
+        $this->sum         = (float) $ahleticMethod->sum;
+        $this->min         = (float) $ahleticMethod->min;
+        $this->ops         = (float) $ahleticMethod->ops;
     }
 
     /**

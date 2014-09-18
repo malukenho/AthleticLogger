@@ -28,7 +28,7 @@ class ClassResultTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->athleticClassResult = $this->getMock('Athletic\Results\ClassResults', [], [], '', false);
-        $athleticMethodResult      = new AthleticMethodResult($this->athleticClassResult, [0.1, 0.2, 0.3], 1000);
+        $athleticMethodResult      = new AthleticMethodResult($this->className, [0.1, 0.2, 0.3], 1000);
         $this->athleticClassResult->expects($this->once())
                                   ->method('getIterator')
                                   ->will($this->returnValue(new ArrayIterator([$athleticMethodResult])));
