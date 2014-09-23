@@ -23,7 +23,7 @@ class DatabasePublisher #implements PublisherInterface
      */
     public function publish($results)
     {
-        /** @var AthleticClassResult $result */
+        /* @var AthleticClassResult $result */
         foreach ($results as $result) {
             $this->objectManager->persist(new ClassResult($result));
         }
