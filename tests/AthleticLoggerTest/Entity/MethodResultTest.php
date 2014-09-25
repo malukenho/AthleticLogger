@@ -28,6 +28,7 @@ class MethodResultTest extends PHPUnit_Framework_TestCase
     {
         $this->classResult          = $this->getMock('AthleticLogger\Entity\ClassResult', [], [], '', false);
         $this->athleticMethodResult = new AthleticMethodResult('foo', [1, 2, 3], 1000);
+        $this->athleticMethodResult->setGroup('group');
         $this->methodResult         = new MethodResult($this->classResult, $this->athleticMethodResult);
     }
 
@@ -79,5 +80,10 @@ class MethodResultTest extends PHPUnit_Framework_TestCase
     public function testGetAverage()
     {
         $this->assertEquals($this->athleticMethodResult->avg, $this->methodResult->getAverage());
+    }
+
+    public function testGetGroup()
+    {
+        $this->assertEquals($this->athleticMethodResult->group, $this->methodResult->getGroup());
     }
 }

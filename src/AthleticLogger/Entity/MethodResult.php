@@ -33,6 +33,12 @@ class MethodResult
     private $name;
 
     /**
+     * @ORM\Column(name="group", type="string")
+     * @var string
+     */
+    private $group;
+
+    /**
      * @ORM\Column(name="iterations", type="integer")
      * @var int
      */
@@ -78,6 +84,7 @@ class MethodResult
     {
         $this->classResult = $classResult;
         $this->name        = (string) $athleticMethod->methodName;
+        $this->group       = (string) $athleticMethod->group;
         $this->iterations  = (int) $athleticMethod->iterations;
         $this->average     = (float) $athleticMethod->avg;
         $this->max         = (float) $athleticMethod->max;
@@ -108,6 +115,14 @@ class MethodResult
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGroup()
+    {
+        return $this->group;
     }
 
     /**
