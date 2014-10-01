@@ -8,7 +8,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 /**
  * @todo implement the interface `PublisherInterface`
- */ 
+ */
 class DatabasePublisher
 {
     /**
