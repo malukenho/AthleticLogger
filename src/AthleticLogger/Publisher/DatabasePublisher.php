@@ -6,7 +6,10 @@ use Athletic\Results\ClassResults as AthleticClassResult;
 use AthleticLogger\Entity\ClassResult;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class DatabasePublisher #implements PublisherInterface
+/**
+ * @todo implement the interface `PublisherInterface`
+ */ 
+class DatabasePublisher
 {
     /**
      * @var ObjectManager
